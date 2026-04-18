@@ -1,7 +1,3 @@
-"""
-KALYANI PORTFOLIO — FastAPI Backend
-Clean, modular, production-ready
-"""
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,8 +6,8 @@ from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import os
 
-from database import connect_db, disconnect_db
-from routers import blogs, projects, contact, analytics, auth, github, spotify, photos
+from backend.database import connect_db, disconnect_db
+from backend.routers import blogs, projects, contact, analytics, auth, github, spotify, photos
 
 
 @asynccontextmanager
