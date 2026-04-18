@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin · Kalyani Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --bg: #fff5e4; --bg-card: #fffbf5; --bg-alt: #ffecd2;
+      --puce: #e5989b; --accent: #850e35; --puce-light: #ffb3c1;
+      --text: #3d2c2c; --text-muted: #8b6b6b; --text-light: #c4a0a0;
+      --border: #f0ddd0; --shadow: rgba(133,14,53,0.08);
+      --green: #5a7a4a; --red: #c0392b;
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-sans: 'DM Sans', sans-serif;
+      --r-md: 12px; --r-lg: 20px; --r-pill: 999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); min-height: 100vh; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; }
+
+    /* ── LOGIN SCREEN ── */
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--bg), var(--bg-alt));
+    }
+    .login-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 3rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 16px 60px var(--shadow);
+    }
+    .login-logo {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      font-weight: 400;
+      color: var(--accent);
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .login-subtitle { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 2rem; }
+    .login-form { display: flex; flex-direction: column; gap: 1.25rem; }
+    .login-form input {
+      width: 100%; padding: 0.875rem 1rem;
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: var(--r-md); font-family: var(--font-sans); font-size: 0.95rem; color: var(--text);
+      outline: none; transition: border-color 0.2s;
+    }
+    .login-form input:focus { border-color: var(--puce); }
+    .login-btn {
+      width: 100%; padding: 0.9rem;
+      background: var(--accent); color: #fff;
+      border-radius: var(--r-pill); font-size: 0.95rem; font-weight: 500;
+      transition: background 0.2s;
+    }
+    .login-btn:hover { background: #6a0a28; }
+    .login-error { color: var(--red); font-size: 0.85rem; text-align: center; }
+
+    /* ── DASHBOARD LAYOUT ── */
+    .dashboard { display: none; min-height: 100vh; }
+    .dashboard.active { display: flex; }
+
+    .sidebar {
+      width: 240px;
+      background: var(--text);
+      color: var(--bg);
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      flex-shrink: 0;
+      min-height: 100vh;
+    }
+    .sidebar-logo {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--puce-light);
+      font-style: italic;
+      margin-bottom: 0.25rem;
+    }
+    .sidebar-subtitle { font-size: 0.75rem; color: rgba(255,245,228,0.4); margin-bottom: 2.5rem; }
+    .sidebar-nav { display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+    .nav-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.75rem 1rem; border-radius: var(--r-md);
+      color: rgba(255,245,228,0.6); font-size: 0.9rem;
+      transition: all 0.2s; cursor: pointer;
+    }
+    .nav-item:hover, .nav-item.active {
+      background: rgba(229,152,155,0.15);
+      color: var(--puce-light);
+    }
+    .nav-item i { width: 18px; text-align: center; font-size: 0.85rem; }
+    .sidebar-logout {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.75rem 1rem; color: rgba(255,245,228,0.4);
+      font-size: 0.85rem; cursor: pointer; margin-top: auto;
+      border-top: 1px solid rgba(255,245,228,0.1);
+      padding-top: 1.25rem;
+      transition: color 0.2s;
+    }
+    .sidebar-logout:hover { color: var(--puce-light); }
+
+    /* ── MAIN AREA ── */
+    .main {
+      flex: 1; padding: 2.5rem;
+      overflow-y: auto;
+      background: var(--bg);
+    }
+    .main-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+    }
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: 2rem; font-weight: 400;
+      color: var(--text);
+    }
+    .page-title span { color: var(--accent); font-style: italic; }
+
+    /* ── STAT CARDS ── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+    .stat-card-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .stat-card-value { font-family: var(--font-serif); font-size: 2.5rem; color: var(--accent); font-weight: 400; }
+    .stat-card-icon { font-size: 1.2rem; color: var(--puce); margin-bottom: 0.75rem; }
+
+    /* ── PANELS ── */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ── TABLE ── */
+    .table-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+    .table-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .table-header h3 { font-size: 1rem; font-weight: 500; color: var(--text); }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      text-align: left; font-size: 0.75rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-muted); padding: 0.9rem 1.25rem;
+      background: var(--bg-alt);
+      font-weight: 500;
+    }
+    td { padding: 1rem 1.25rem; font-size: 0.875rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg-alt); }
+
+    .badge {
+      display: inline-flex; align-items: center;
+      padding: 0.2rem 0.65rem; border-radius: var(--r-pill);
+      font-size: 0.75rem; font-weight: 500;
+    }
+    .badge-green { background: rgba(90,122,74,0.12); color: var(--green); }
+    .badge-red { background: rgba(192,57,43,0.12); color: var(--red); }
+    .badge-puce { background: rgba(229,152,155,0.15); color: var(--accent); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1.1rem; border-radius: var(--r-pill);
+      font-size: 0.8rem; font-weight: 500; transition: all 0.2s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #6a0a28; }
+    .btn-sm { padding: 0.3rem 0.8rem; font-size: 0.75rem; }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text-muted); background: none; }
+    .btn-ghost:hover { border-color: var(--puce); color: var(--accent); }
+    .btn-danger { border: 1px solid rgba(192,57,43,0.3); color: var(--red); background: none; }
+    .btn-danger:hover { background: rgba(192,57,43,0.08); }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(26,15,15,0.7);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: all 0.3s;
+    }
+    .modal-overlay.open { opacity: 1; visibility: visible; }
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 2rem;
+      width: 100%; max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(20px);
+      transition: transform 0.3s;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.75rem; }
+    .modal-title { font-family: var(--font-serif); font-size: 1.5rem; color: var(--text); font-weight: 400; }
+    .modal-close { font-size: 1.25rem; color: var(--text-muted); transition: color 0.2s; background: none; border: none; cursor: pointer; }
+    .modal-close:hover { color: var(--accent); }
+
+    .form-grid { display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 500; }
+    .form-group input, .form-group textarea, .form-group select {
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: var(--r-md); padding: 0.75rem 1rem;
+      font-family: var(--font-sans); font-size: 0.9rem; color: var(--text);
+      outline: none; transition: border-color 0.2s; width: 100%;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--puce);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 0.5rem; }
+
+    .feedback { padding: 0.75rem 1rem; border-radius: var(--r-md); font-size: 0.85rem; margin-top: 0.5rem; display: none; }
+    .feedback.success { background: rgba(90,122,74,0.12); color: var(--green); display: block; }
+    .feedback.error { background: rgba(192,57,43,0.1); color: var(--red); display: block; }
+
+    .truncate { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .text-muted { color: var(--text-muted); }
+
+    /* ── MESSAGES ── */
+    .message-row { cursor: pointer; }
+    .message-row td:first-child { font-weight: 500; }
+    .message-row.unread td { background: rgba(229,152,155,0.05); }
+    .message-detail {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 1.25rem;
+      margin-top: 1rem;
+      display: none;
+    }
+    .message-detail.open { display: block; }
+
+    @media (max-width: 768px) {
+      .sidebar { width: 200px; padding: 1.5rem 1rem; }
+      .main { padding: 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .dashboard { flex-direction: column; }
+      .sidebar { width: 100%; min-height: auto; flex-direction: row; flex-wrap: wrap; padding: 1rem; }
+      .sidebar-nav { flex-direction: row; flex-wrap: wrap; }
+      .sidebar-subtitle, .sidebar-logout { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="login-logo">K.</div>
+      <p class="login-subtitle">admin dashboard · portfolio</p>
+      <form class="login-form" id="loginForm">
+        <input type="text" id="loginUsername" placeholder="username" required autocomplete="username" />
+        <input type="password" id="loginPassword" placeholder="password" required autocomplete="current-password" />
+        <button type="submit" class="login-btn">sign in →</button>
+        <p class="login-error" id="loginError"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">K.</div>
+      <p class="sidebar-subtitle">admin · portfolio</p>
+      <nav class="sidebar-nav">
+        <div class="nav-item active" onclick="showPanel('overview')">
+          <i class="fas fa-chart-simple"></i> Overview
+        </div>
+        <div class="nav-item" onclick="showPanel('blogs')">
+          <i class="fas fa-pen-nib"></i> Blogs
+        </div>
+        <div class="nav-item" onclick="showPanel('projects')">
+          <i class="fas fa-code-branch"></i> Projects
+        </div>
+        <div class="nav-item" onclick="showPanel('messages')">
+          <i class="fas fa-envelope"></i> Messages
+        </div>
+        <div class="nav-item" onclick="showPanel('analytics')">
+          <i class="fas fa-chart-line"></i> Analytics
+        </div>
+      </nav>
+      <div class="sidebar-logout" onclick="logout()">
+        <i class="fas fa-arrow-right-from-bracket"></i> Logout
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+
+      <!-- Overview Panel -->
+      <div class="panel active" id="panel-overview">
+        <div class="main-header">
+          <h1 class="page-title">Good morning, <span>Kalyani</span> ✨</h1>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-card-icon"><i class="fas fa-eye"></i></div>
+            <div class="stat-card-label">Total Visits</div>
+            <div class="stat-card-value" id="statVisits">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon"><i class="fas fa-pen-nib"></i></div>
+            <div class="stat-card-label">Blog Posts</div>
+            <div class="stat-card-value" id="statBlogs">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon"><i class="fas fa-code-branch"></i></div>
+            <div class="stat-card-label">Projects</div>
+            <div class="stat-card-value" id="statProjects">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon"><i class="fas fa-envelope"></i></div>
+            <div class="stat-card-label">Messages</div>
+            <div class="stat-card-value" id="statMessages">—</div>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <div class="table-header"><h3>Recent Messages</h3></div>
+          <table>
+            <thead><tr><th>From</th><th>Subject</th><th>Date</th><th>Status</th></tr></thead>
+            <tbody id="recentMessages"><tr><td colspan="4" style="color:var(--text-muted);text-align:center;padding:2rem">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Blogs Panel -->
+      <div class="panel" id="panel-blogs">
+        <div class="main-header">
+          <h1 class="page-title"><span>Blog</span> Posts</h1>
+          <button class="btn btn-primary" onclick="openModal('blog')">
+            <i class="fas fa-plus"></i> New Post
+          </button>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Title</th><th>Tag</th><th>Status</th><th>Views</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="blogsTable"><tr><td colspan="6" style="color:var(--text-muted);text-align:center;padding:2rem">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Projects Panel -->
+      <div class="panel" id="panel-projects">
+        <div class="main-header">
+          <h1 class="page-title"><span>Projects</span></h1>
+          <button class="btn btn-primary" onclick="openModal('project')">
+            <i class="fas fa-plus"></i> New Project
+          </button>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Title</th><th>Type</th><th>Tech Stack</th><th>Featured</th><th>Order</th><th>Actions</th></tr></thead>
+            <tbody id="projectsTable"><tr><td colspan="6" style="color:var(--text-muted);text-align:center;padding:2rem">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Messages Panel -->
+      <div class="panel" id="panel-messages">
+        <div class="main-header">
+          <h1 class="page-title"><span>Messages</span></h1>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>From</th><th>Email</th><th>Subject</th><th>Date</th><th>Status</th></tr></thead>
+            <tbody id="messagesTable"><tr><td colspan="5" style="color:var(--text-muted);text-align:center;padding:2rem">Loading...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Analytics Panel -->
+      <div class="panel" id="panel-analytics">
+        <div class="main-header">
+          <h1 class="page-title"><span>Analytics</span></h1>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="stat-card-label">Total Visits</div>
+            <div class="stat-card-value" id="aStatTotal">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">Today</div>
+            <div class="stat-card-value" id="aStatToday">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-label">This Week</div>
+            <div class="stat-card-value" id="aStatWeek">—</div>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <div class="table-header"><h3>Page Breakdown</h3></div>
+          <table>
+            <thead><tr><th>Page</th><th>Visits</th></tr></thead>
+            <tbody id="analyticsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- BLOG MODAL -->
+  <div class="modal-overlay" id="modal-blog">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="blogModalTitle">New Blog Post</h2>
+        <button class="modal-close" onclick="closeModal('blog')">✕</button>
+      </div>
+      <form id="blogForm" class="form-grid">
+        <input type="hidden" id="blogId" />
+        <div class="form-row">
+          <div class="form-group">
+            <label>Title *</label>
+            <input type="text" id="blogTitle" required placeholder="My awesome post" />
+          </div>
+          <div class="form-group">
+            <label>Slug *</label>
+            <input type="text" id="blogSlug" required placeholder="my-awesome-post" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tag</label>
+            <select id="blogTag">
+              <option value="thoughts">thoughts</option>
+              <option value="ML">ML</option>
+              <option value="NLP">NLP</option>
+              <option value="tutorial">tutorial</option>
+              <option value="personal">personal</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Read Time</label>
+            <input type="text" id="blogReadTime" placeholder="5 min read" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Excerpt *</label>
+          <textarea id="blogExcerpt" rows="2" required placeholder="A short summary..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Content (Markdown) *</label>
+          <textarea id="blogContent" rows="8" required placeholder="# Title&#10;&#10;Your blog content here..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Cover Image URL</label>
+            <input type="url" id="blogCoverImage" placeholder="https://..." />
+          </div>
+          <div class="form-group" style="flex-direction:row;align-items:center;gap:1rem;margin-top:1.5rem">
+            <label style="text-transform:none;letter-spacing:0;font-size:0.9rem;display:flex;align-items:center;gap:0.5rem;cursor:pointer">
+              <input type="checkbox" id="blogPublished" style="width:auto;padding:0;background:none;border:none" />
+              Published
+            </label>
+            <label style="text-transform:none;letter-spacing:0;font-size:0.9rem;display:flex;align-items:center;gap:0.5rem;cursor:pointer">
+              <input type="checkbox" id="blogFeatured" style="width:auto;padding:0;background:none;border:none" />
+              Featured
+            </label>
+          </div>
+        </div>
+        <div id="blogFeedback" class="feedback"></div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="closeModal('blog')">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="blogSubmitBtn">Create Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- PROJECT MODAL -->
+  <div class="modal-overlay" id="modal-project">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="projectModalTitle">New Project</h2>
+        <button class="modal-close" onclick="closeModal('project')">✕</button>
+      </div>
+      <form id="projectForm" class="form-grid">
+        <input type="hidden" id="projectId" />
+        <div class="form-row">
+          <div class="form-group">
+            <label>Title *</label>
+            <input type="text" id="projectTitle" required placeholder="SentimentSage" />
+          </div>
+          <div class="form-group">
+            <label>Slug *</label>
+            <input type="text" id="projectSlug" required placeholder="sentiment-sage" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description *</label>
+          <textarea id="projectDescription" rows="2" required placeholder="Brief overview..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Problem *</label>
+          <textarea id="projectProblem" rows="2" required placeholder="What problem does it solve?"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Solution *</label>
+          <textarea id="projectSolution" rows="2" required placeholder="How did you solve it?"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Impact *</label>
+          <textarea id="projectImpact" rows="2" required placeholder="What was the result?"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Tech Stack (comma separated)</label>
+          <input type="text" id="projectTechStack" placeholder="Python, TensorFlow, FastAPI" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>GitHub URL</label>
+            <input type="url" id="projectGithub" placeholder="https://github.com/..." />
+          </div>
+          <div class="form-group">
+            <label>Demo URL</label>
+            <input type="url" id="projectDemo" placeholder="https://..." />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Year</label>
+            <input type="text" id="projectYear" placeholder="2024" />
+          </div>
+          <div class="form-group">
+            <label>Type</label>
+            <input type="text" id="projectType" placeholder="ML · NLP" />
+          </div>
+        </div>
+        <div id="projectFeedback" class="feedback"></div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="closeModal('project')">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="projectSubmitBtn">Create Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

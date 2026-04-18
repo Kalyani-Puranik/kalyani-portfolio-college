@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kalyani — AI/ML Student, Builder, Dreamer. Crafting intelligent systems with a creative soul." />
+  <meta name="keywords" content="AI, ML, Machine Learning, Portfolio, Student, Developer" />
+  <meta property="og:title" content="Kalyani · AI/ML Portfolio" />
+  <meta property="og:description" content="Crafting intelligent systems with a creative soul." />
+  <meta property="og:type" content="website" />
+  <title>Kalyani · AI/ML Portfolio</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- Easter Egg -->
+  <div class="easter-egg" id="easterEgg">
+    <div class="egg-content">
+      <span>✨ you found me!</span>
+      <p>fun fact: i named my first neural net "pumpkin" 🎃</p>
+      <button onclick="document.getElementById('easterEgg').classList.remove('active')">hehe ok!</button>
+    </div>
+  </div>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <span class="sun">☀️</span>
+    <span class="moon">🌙</span>
+  </button>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">
+      <span class="logo-k">K</span><span class="logo-dot">.</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#blog">thoughts</a></li>
+      <li><a href="#photography">gallery</a></li>
+      <li><a href="#contact">say hi</a></li>
+    </ul>
+    <button class="nav-resume-btn" onclick="downloadResume()">résumé ↓</button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#about" onclick="closeMobile()">about</a></li>
+      <li><a href="#skills" onclick="closeMobile()">skills</a></li>
+      <li><a href="#projects" onclick="closeMobile()">projects</a></li>
+      <li><a href="#blog" onclick="closeMobile()">thoughts</a></li>
+      <li><a href="#photography" onclick="closeMobile()">gallery</a></li>
+      <li><a href="#contact" onclick="closeMobile()">say hi</a></li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+  <section class="hero" id="home">
+    <div class="hero-noise"></div>
+    <div class="hero-orb hero-orb--1"></div>
+    <div class="hero-orb hero-orb--2"></div>
+    <div class="hero-orb hero-orb--3"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal-up">✦ AIML student · builder · dreamer</p>
+      <h1 class="hero-name reveal-up">
+        <span class="hero-name--first">Kal</span><span class="hero-name--accent">yani</span>
+      </h1>
+      <p class="hero-tagline reveal-up">
+        I teach machines to <em>think</em>,<br/>
+        and systems to <em>feel</em>.
+      </p>
+      <div class="hero-cta reveal-up">
+        <a href="#projects" class="btn-primary">see my work ↓</a>
+        <a href="#contact" class="btn-ghost">let's connect →</a>
+      </div>
+    </div>
+
+    <div class="hero-marquee">
+      <div class="marquee-track">
+        <span>machine learning</span><span>·</span>
+        <span>neural networks</span><span>·</span>
+        <span>computer vision</span><span>·</span>
+        <span>nlp</span><span>·</span>
+        <span>python</span><span>·</span>
+        <span>fastapi</span><span>·</span>
+        <span>tensorflow</span><span>·</span>
+        <span>creative coding</span><span>·</span>
+        <span>machine learning</span><span>·</span>
+        <span>neural networks</span><span>·</span>
+        <span>computer vision</span><span>·</span>
+        <span>nlp</span><span>·</span>
+        <span>python</span><span>·</span>
+        <span>fastapi</span><span>·</span>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>scroll</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ ABOUT ═══════════════════════════════════════ -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual">
+          <div class="about-photo-frame">
+            <div class="photo-placeholder">
+              <div class="photo-initials">K</div>
+              <div class="photo-decorations">
+                <span class="deco deco--star">✦</span>
+                <span class="deco deco--circle"></span>
+                <span class="deco deco--line"></span>
+              </div>
+            </div>
+            <div class="photo-sticker sticker--1">ai/ml ✨</div>
+            <div class="photo-sticker sticker--2">🌸 builder</div>
+          </div>
+          <div class="about-stats">
+            <div class="stat-pill">
+              <span class="stat-num" data-target="15">0</span>+
+              <span class="stat-label">projects built</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-num" data-target="3">0</span>
+              <span class="stat-label">years coding</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-num" data-target="8">0</span>+
+              <span class="stat-label">papers read</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-text">
+          <p class="section-eyebrow reveal-left">✦ my story</p>
+          <h2 class="section-title reveal-left">
+            I'm Kalyani —<br/>
+            <em>a curious mind</em><br/>
+            who fell in love<br/>
+            with intelligent systems.
+          </h2>
+          <div class="about-body reveal-left">
+            <p>
+              It started with a simple question: <em>can a machine understand poetry?</em>
+              That rabbit hole led me to AIML, and I never looked back.
+            </p>
+            <p>
+              I'm currently in my final years studying Artificial Intelligence & Machine Learning,
+              building projects that sit at the intersection of <strong>data, creativity, and impact</strong>.
+              I believe the best AI systems aren't just accurate — they're thoughtful.
+            </p>
+            <p>
+              When I'm not training models, you'll find me journaling,
+              shooting film photography, or hunting for the perfect cup of chai. ☕
+            </p>
+          </div>
+          <div class="about-tags reveal-left">
+            <span class="tag">📚 perpetual learner</span>
+            <span class="tag">🎨 creative coder</span>
+            <span class="tag">🤖 ml enthusiast</span>
+            <span class="tag">📸 film photographer</span>
+            <span class="tag">✍️ occasional blogger</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ SKILLS ═══════════════════════════════════════ -->
+  <section class="skills" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal-up">✦ what i work with</p>
+        <h2 class="section-title reveal-up">skills & tools</h2>
+      </div>
+
+      <div class="skills-grid">
+        <!-- AI/ML -->
+        <div class="skill-card reveal-up">
+          <div class="skill-card-header">
+            <span class="skill-card-icon">🧠</span>
+            <h3>AI / Machine Learning</h3>
+          </div>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <span class="skill-name">TensorFlow / Keras</span>
+              <div class="skill-bar"><div class="skill-fill" data-level="88"></div></div>
+              <span class="skill-percent">88%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">PyTorch</span>
+              <div class="skill-bar"><div class="skill-fill" data-level="75"></div></div>
+              <span class="skill-percent">75%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Scikit-learn</span>
+              <div class="skill-bar"><div class="skill-fill" data-level="92"></div></div>
+              <span class="skill-percent">92%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">HuggingFace</span>
+              <div class="skill-bar"><div class="skill-fill" data-level="70"></div></div>
+              <span class="skill-percent">70%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">OpenCV</span>
+              <div class="skill-bar"><div class="skill-fill" data-level="80"></div></div>
+              <span class="skill-percent">80%</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Web -->
+        <div class="skill-card reveal-up">
+          <div class="skill-card-header">
+            <span class="skill-card-icon">🌐</span>
+            <h3>Web Development</h3>
+          </div>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <span class="skill-name">Python (FastAPI)</span>
+              <div class="skill-bar"><div class="skill-fill" data-level="90"></div></div>
+              <span class="skill-percent">90%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">HTML / CSS / JS</span>
+              <div class="skill-bar"><div class="skill-fill" data-level="85"></div></div>
+              <span class="skill-percent">85%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">React</span>
+              <div class="skill-bar"><div class="skill-fill" data-level="68"></div></div>
+              <span class="skill-percent">68%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">MongoDB</span>
+              <div class="skill-bar"><div class="skill-fill" data-level="78"></div></div>
+              <span class="skill-percent">78%</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">REST APIs</span>
+              <div class="skill-bar"><div class="skill-fill" data-level="88"></div></div>
+              <span class="skill-percent">88%</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tools -->
+        <div class="skill-card reveal-up">
+          <div class="skill-card-header">
+            <span class="skill-card-icon">🛠️</span>
+            <h3>Tools & Others</h3>
+          </div>
+          <div class="tools-badges">
+            <span class="tool-badge">Git</span>
+            <span class="tool-badge">Docker</span>
+            <span class="tool-badge">Jupyter</span>
+            <span class="tool-badge">Pandas</span>
+            <span class="tool-badge">NumPy</span>
+            <span class="tool-badge">Matplotlib</span>
+            <span class="tool-badge">Weights & Biases</span>
+            <span class="tool-badge">Postman</span>
+            <span class="tool-badge">VS Code</span>
+            <span class="tool-badge">Linux</span>
+            <span class="tool-badge">Figma</span>
+            <span class="tool-badge">Notion</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ PROJECTS ═══════════════════════════════════════ -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal-up">✦ things i've built</p>
+        <h2 class="section-title reveal-up">selected projects</h2>
+        <p class="section-subtitle reveal-up">Each one taught me something new about machines — and myself.</p>
+      </div>
+
+      <div class="projects-list" id="projectsList">
+        <!-- Projects loaded from API or fallback -->
+        <article class="project-card reveal-up">
+          <div class="project-number">01</div>
+          <div class="project-content">
+            <div class="project-image">
+              <div class="project-img-placeholder" style="background: linear-gradient(135deg, #e5989b, #850e35)">
+                <span>🧠</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-year">2024</span>
+                <span class="project-type">ML · NLP</span>
+              </div>
+              <h3 class="project-title">SentimentSage</h3>
+              <p class="project-problem"><strong>Problem:</strong> Social media is chaotic — brands couldn't understand how customers <em>actually</em> felt about their products beyond stars and ratings.</p>
+              <p class="project-solution"><strong>Solution:</strong> Built a fine-tuned BERT model that classifies sentiment at aspect-level granularity, extracting emotion nuance from noisy tweets and reviews.</p>
+              <p class="project-impact"><strong>Impact:</strong> 94.2% accuracy on benchmark datasets. Deployed as a FastAPI service, processing 1000+ reviews/second.</p>
+              <div class="project-tech">
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">BERT</span>
+                <span class="tech-badge">HuggingFace</span>
+                <span class="tech-badge">FastAPI</span>
+                <span class="tech-badge">Docker</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/kalyani" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#" class="project-link project-link--demo">🔗 Live Demo</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal-up">
+          <div class="project-number">02</div>
+          <div class="project-content project-content--reverse">
+            <div class="project-image">
+              <div class="project-img-placeholder" style="background: linear-gradient(135deg, #ffb3c1, #e5989b)">
+                <span>👁️</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-year">2024</span>
+                <span class="project-type">Computer Vision · Healthcare</span>
+              </div>
+              <h3 class="project-title">DermaScan</h3>
+              <p class="project-problem"><strong>Problem:</strong> Dermatological conditions are often misdiagnosed in rural India due to a shortage of specialist doctors.</p>
+              <p class="project-solution"><strong>Solution:</strong> Developed a CNN-based skin condition classifier using transfer learning (EfficientNetB3), with an explainability layer using Grad-CAM visualizations doctors can trust.</p>
+              <p class="project-impact"><strong>Impact:</strong> 91% top-3 accuracy. Submitted for college research paper. Potential for rural clinic deployment.</p>
+              <div class="project-tech">
+                <span class="tech-badge">TensorFlow</span>
+                <span class="tech-badge">EfficientNet</span>
+                <span class="tech-badge">Grad-CAM</span>
+                <span class="tech-badge">OpenCV</span>
+                <span class="tech-badge">Flask</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/kalyani" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#" class="project-link project-link--paper">📄 Paper</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal-up">
+          <div class="project-number">03</div>
+          <div class="project-content">
+            <div class="project-image">
+              <div class="project-img-placeholder" style="background: linear-gradient(135deg, #c9b8d8, #9b72cf)">
+                <span>🎵</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-meta">
+                <span class="project-year">2023</span>
+                <span class="project-type">Generative AI · Music</span>
+              </div>
+              <h3 class="project-title">MoodMelody</h3>
+              <p class="project-problem"><strong>Problem:</strong> Music recommendation systems suggest songs based on history, not how you're <em>feeling right now</em>.</p>
+              <p class="project-solution"><strong>Solution:</strong> Trained an LSTM model on MIDI sequences + emotion tags, with a real-time mood detection layer via webcam (facial action units). The model generates short melodic loops matching detected mood.</p>
+              <p class="project-impact"><strong>Impact:</strong> Won 2nd place at college hackathon. 200+ test users reported high emotional resonance.</p>
+              <div class="project-tech">
+                <span class="tech-badge">LSTM</span>
+                <span class="tech-badge">MIDI</span>
+                <span class="tech-badge">OpenCV</span>
+                <span class="tech-badge">React</span>
+                <span class="tech-badge">FastAPI</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/kalyani" class="project-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#" class="project-link project-link--demo">🔗 Live Demo</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ BLOG ═══════════════════════════════════════ -->
+  <section class="blog" id="blog">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal-up">✦ words & thoughts</p>
+        <h2 class="section-title reveal-up">the notebook</h2>
+        <p class="section-subtitle reveal-up">I write when I'm confused. Which is often. That's how learning works.</p>
+      </div>
+
+      <div class="blog-grid" id="blogGrid">
+        <!-- Loaded from API -->
+        <div class="blog-loading">
+          <div class="loading-spinner"></div>
+          <span>fetching thoughts...</span>
+        </div>
+      </div>
+
+      <div class="blog-cta">
+        <a href="#" class="btn-ghost">read all posts →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ GITHUB ═══════════════════════════════════════ -->
+  <section class="github-stats" id="github">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal-up">✦ open source life</p>
+        <h2 class="section-title reveal-up">github activity</h2>
+      </div>
+
+      <div class="github-grid" id="githubGrid">
+        <div class="github-card reveal-up">
+          <i class="fab fa-github"></i>
+          <span class="github-stat-num" id="githubRepos">—</span>
+          <span class="github-stat-label">repositories</span>
+        </div>
+        <div class="github-card reveal-up">
+          <i class="fas fa-star"></i>
+          <span class="github-stat-num" id="githubStars">—</span>
+          <span class="github-stat-label">total stars</span>
+        </div>
+        <div class="github-card reveal-up">
+          <i class="fas fa-code-branch"></i>
+          <span class="github-stat-num" id="githubFollowers">—</span>
+          <span class="github-stat-label">followers</span>
+        </div>
+        <div class="github-card reveal-up">
+          <i class="fas fa-fire"></i>
+          <span class="github-stat-num" id="githubContribs">365+</span>
+          <span class="github-stat-label">contributions/yr</span>
+        </div>
+      </div>
+
+      <div class="github-streak reveal-up">
+        <img
+          src="https://github-readme-stats.vercel.app/api?username=kalyani&show_icons=true&theme=rose_pine&hide_border=true&bg_color=fff5e4&title_color=850e35&icon_color=e5989b&text_color=3d2c2c"
+          alt="GitHub Stats"
+          loading="lazy"
+          onerror="this.style.display='none'"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ FUN ═══════════════════════════════════════ -->
+  <section class="fun-section" id="fun">
+    <div class="container">
+      <div class="fun-grid">
+        <!-- Currently Learning -->
+        <div class="fun-card reveal-left">
+          <div class="fun-card-icon">📖</div>
+          <h3>currently learning</h3>
+          <ul class="fun-list">
+            <li>🔬 Diffusion models & DDPM</li>
+            <li>🧮 Graph Neural Networks</li>
+            <li>🌐 LLM fine-tuning with LoRA</li>
+            <li>🦀 Rust (very slowly...)</li>
+          </ul>
+        </div>
+
+        <!-- Spotify -->
+        <div class="fun-card fun-card--spotify reveal-up" id="spotifyCard">
+          <div class="spotify-header">
+            <i class="fab fa-spotify"></i>
+            <span>now playing</span>
+          </div>
+          <div class="spotify-content" id="spotifyContent">
+            <div class="spotify-bars">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+            <div class="spotify-info" id="spotifyInfo">
+              <div class="spotify-album-art">
+                <div class="album-placeholder">🎵</div>
+              </div>
+              <div class="spotify-details">
+                <p class="spotify-song" id="spotifySong">loading...</p>
+                <p class="spotify-artist" id="spotifyArtist">—</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Currently Reading -->
+        <div class="fun-card reveal-right">
+          <div class="fun-card-icon">🌸</div>
+          <h3>life updates</h3>
+          <ul class="fun-list">
+            <li>📝 Writing my final year thesis</li>
+            <li>🏆 Prepping for competitions</li>
+            <li>☕ Trying every café in the city</li>
+            <li>🎞️ Shooting a new film roll</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ PHOTOGRAPHY ═══════════════════════════════════════ -->
+  <section class="photography" id="photography">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow reveal-up">✦ through the lens</p>
+        <h2 class="section-title reveal-up">the gallery</h2>
+        <p class="section-subtitle reveal-up">Life looks better with grain and light leaks.</p>
+      </div>
+
+      <div class="photo-masonry" id="photoGallery">
+        <!-- Photos loaded from API or placeholders -->
+        <div class="photo-item reveal-up" style="--span:2">
+          <div class="photo-placeholder-card" style="background: linear-gradient(135deg, #e5989b33, #850e3533); height: 320px">
+            <span>🌸</span>
+          </div>
+        </div>
+        <div class="photo-item reveal-up">
+          <div class="photo-placeholder-card" style="background: linear-gradient(135deg, #ffb3c133, #e5989b33); height: 240px">
+            <span>🌿</span>
+          </div>
+        </div>
+        <div class="photo-item reveal-up">
+          <div class="photo-placeholder-card" style="background: linear-gradient(135deg, #c9b8d833, #9b72cf33); height: 200px">
+            <span>✨</span>
+          </div>
+        </div>
+        <div class="photo-item reveal-up" style="--span:1">
+          <div class="photo-placeholder-card" style="background: linear-gradient(135deg, #ffd6a533, #ffb3c133); height: 280px">
+            <span>🌙</span>
+          </div>
+        </div>
+        <div class="photo-item reveal-up">
+          <div class="photo-placeholder-card" style="background: linear-gradient(135deg, #e5989b33, #c9b8d833); height: 260px">
+            <span>🍃</span>
+          </div>
+        </div>
+        <div class="photo-item reveal-up">
+          <div class="photo-placeholder-card" style="background: linear-gradient(135deg, #850e3533, #e5989b33); height: 220px">
+            <span>☕</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ CONTACT ═══════════════════════════════════════ -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-left">
+          <p class="section-eyebrow reveal-left">✦ let's talk</p>
+          <h2 class="section-title reveal-left">
+            Got a project?<br/>
+            <em>an idea?<br/>
+            just want to say hi?</em>
+          </h2>
+          <p class="contact-subtext reveal-left">
+            I'm always open to interesting conversations,
+            collaborations, or just sharing good chai recommendations.
+          </p>
+          <div class="contact-socials reveal-left">
+            <a href="https://github.com/kalyani" class="social-link" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://linkedin.com/in/kalyani" class="social-link" target="_blank">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="mailto:kalyani@example.com" class="social-link">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://twitter.com/kalyani" class="social-link" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-right reveal-right">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">your name ✦</label>
+              <input type="text" id="name" name="name" placeholder="what should i call you?" required />
+            </div>
+            <div class="form-group">
+              <label for="email">your email ✦</label>
+              <input type="email" id="email" name="email" placeholder="so i can write back :)" required />
+            </div>
+            <div class="form-group">
+              <label for="subject">what's this about?</label>
+              <select id="subject" name="subject">
+                <option value="">choose one...</option>
+                <option value="collaboration">collaboration</option>
+                <option value="opportunity">opportunity</option>
+                <option value="feedback">feedback</option>
+                <option value="chai">chai recommendation ☕</option>
+                <option value="other">other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">your message ✦</label>
+              <textarea id="message" name="message" rows="5" placeholder="tell me everything..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary btn-submit" id="submitBtn">
+              send it ✈️
+            </button>
+            <p class="form-feedback" id="formFeedback"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ FOOTER ═══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="logo-k">K</span><span class="logo-dot">.</span>
+          <p>Kalyani · AIML Student</p>
+        </div>
+        <div class="footer-links">
+          <a href="#about">about</a>
+          <a href="#projects">projects</a>
+          <a href="#blog">blog</a>
+          <a href="#contact">contact</a>
+        </div>
+        <div class="footer-note">
+          <p class="handwritten">made with love & caffeine ☕</p>
+          <p class="footer-copy">© 2024 Kalyani. All rights reserved.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>designed & developed by me · <span class="handwritten">coded with ✨</span></p>
+        <button class="easter-egg-trigger" onclick="triggerEasterEgg()">✦</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page Loader -->
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-content">
+      <div class="loader-logo">K<span>.</span></div>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
