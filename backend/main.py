@@ -6,8 +6,8 @@ from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import os
 
-from backend.database import connect_db, disconnect_db
-from backend.routers import blogs, projects, contact, analytics, auth, github, spotify, photos
+from database import connect_db, disconnect_db
+from routers import blogs, projects, contact, analytics, auth, github, spotify, photos
 
 
 @asynccontextmanager
@@ -15,7 +15,7 @@ async def lifespan(app: FastAPI):
     """Startup/shutdown lifecycle."""
     await connect_db()
     yield
-    await disconnect_db()
+    # await disconnect_db()
 
 
 app = FastAPI(
@@ -24,7 +24,7 @@ app = FastAPI(
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
-    lifespan=lifespan,
+    #lifespan=lifespan,
 )
 
 # ── MIDDLEWARE ─────────────────────────────────────────

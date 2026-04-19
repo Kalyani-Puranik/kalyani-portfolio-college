@@ -1,5 +1,3 @@
-"""Projects router — public GET, protected POST/PUT/DELETE."""
-
 from fastapi import APIRouter, HTTPException, Depends, Query
 from typing import Optional
 from datetime import datetime
@@ -17,8 +15,6 @@ def to_dict(project: Project) -> dict:
     d.pop("_id", None)
     return d
 
-
-# ── PUBLIC ────────────────────────────────────────────
 
 @router.get("/")
 async def get_projects(featured_only: bool = False):
@@ -38,8 +34,6 @@ async def get_project(slug: str):
         raise HTTPException(404, "Project not found")
     return to_dict(project)
 
-
-# ── PROTECTED ─────────────────────────────────────────
 
 @router.post("/", status_code=201)
 async def create_project(payload: ProjectCreate, admin=Depends(get_current_admin)):

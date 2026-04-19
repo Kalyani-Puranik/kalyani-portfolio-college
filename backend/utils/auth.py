@@ -1,32 +1,53 @@
-"""JWT Authentication utilities."""
+"""JWT Authentication utilities (SHA-256 based)."""
 
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 from fastapi import HTTPException, status, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import os
+import hashlib
+
+# =========================
+# CONFIG
+# =========================
 
 SECRET_KEY = os.getenv("JWT_SECRET_KEY", "change-this-in-production-please!")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 24
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 bearer_scheme = HTTPBearer()
 
-# Admin credentials (hash your password!)
+# =========================
+# ADMIN CREDENTIALS
+# =========================
+
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "kalyani")
-ADMIN_PASSWORD_HASH = os.getenv("ADMIN_PASSWORD_HASH", pwd_context.hash("changeme123"))
+
+# ⚠️ IMPORTANT: Replace this with your actual hashed password
+# Example: hash of "admin123"
+ADMIN_PASSWORD_HASH = os.getenv(
+    "ADMIN_PASSWORD_HASH",
+    "240be518fabd2724ddb6f04eebdf39c5d4d7f7c0b6fdbf9f7e0c3e6c6b0f3d4e"
+)
+
+# =========================
+# PASSWORD FUNCTIONS (SHA256)
+# =========================
+
+def hash_password(password: str) -> str:
+    """Hash password using SHA-256."""
+    return hashlib.sha256(password.encode()).hexdigest()
 
 
-def verify_password(plain: str, hashed: str) -> bool:
-    return pwd_context.verify(plain, hashed)
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Verify password using SHA-256."""
+    return hash_password(plain_password) == hashed_password
 
 
-def hash_password(plain: str) -> str:
-    return pwd_context.hash(plain)
-
+# =========================
+# JWT FUNCTIONS
+# =========================
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     to_encode = data.copy()
@@ -46,6 +67,10 @@ def decode_token(token: str) -> dict:
             headers={"WWW-Authenticate": "Bearer"},
         )
 
+
+# =========================
+# AUTH DEPENDENCY
+# =========================
 
 def get_current_admin(credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme)) -> dict:
     payload = decode_token(credentials.credentials)

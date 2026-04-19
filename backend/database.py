@@ -3,11 +3,11 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
 import os
-from backend.models.blog import Blog
-from backend.models.project import Project
-from backend.models.contact import Contact
-from backend.models.analytics import Analytics
-from backend.models.photo import Photo
+from models.blog import Blog
+from models.project import Project
+from models.contact import Contact
+from models.analytics import Analytics
+from models.photo import Photo
 
 
 _client: AsyncIOMotorClient = None
@@ -19,10 +19,10 @@ async def connect_db():
     _client = AsyncIOMotorClient(mongo_uri)
     db = _client[os.getenv("DB_NAME", "kalyani_portfolio")]
 
-    await init_beanie(
-        database=db,
-        document_models=[Blog, Project, Contact, Analytics, Photo]
-    )
+    # await init_beanie(
+    #    database=db,
+    #    document_models=[Blog, Project, Contact, Analytics, Photo]
+    #)
     print("✅ MongoDB connected successfully")
 
 
