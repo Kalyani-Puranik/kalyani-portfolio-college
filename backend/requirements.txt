@@ -2,6 +2,7 @@ fastapi==0.95.2
 uvicorn==0.22.0
 pydantic==1.10.13
 motor==3.1.2
+pymongo==4.3.3
 beanie==1.18.0
 python-jose[cryptography]
 passlib[bcrypt]
