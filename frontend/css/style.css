@@ -961,8 +961,13 @@ section {
 .project-tech {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1.25rem 0;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.project-tech > * {
+  flex: none;
+  width: auto;
 }
 
 .tech-badge {
@@ -977,8 +982,9 @@ section {
 
 .project-links {
   display: flex;
-  gap: 1rem;
+  gap: 0.6rem;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .project-link {
