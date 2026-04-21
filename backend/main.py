@@ -6,16 +6,14 @@ from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import os
 
-from database import connect_db, disconnect_db
-from routers import blogs, projects, contact, analytics, auth, github, spotify, photos
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    """Startup/shutdown lifecycle."""
-    await connect_db()
-    yield
-    # await disconnect_db()
+app = FastAPI(
+    title="Kalyani Portfolio API",
+    description="Backend API powering Kalyani's personal portfolio",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+)
 
 
 app = FastAPI(
