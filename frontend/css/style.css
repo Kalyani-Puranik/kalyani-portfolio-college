@@ -1333,6 +1333,36 @@ section {
   object-fit: cover;
 }
 
+/* ── INSTAGRAM EMBED FIX ─────────────────────────── */
+
+.instagram-media {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: var(--r-md) !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  width: 100% !important;
+  min-width: unset !important;
+  max-width: 100% !important;
+}
+
+.instagram-media iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+  border-radius: var(--r-md) !important;
+}
+
+/* remove ugly extra spacing */
+.instagram-media > div {
+  padding: 0 !important;
+}
+
+/* hide footer text (optional aesthetic cleanup) */
+.instagram-media p {
+  display: none !important;
+}
+
 /* ── CONTACT ─────────────────────────────────────── */
 .contact {
   background: var(--bg-alt);
