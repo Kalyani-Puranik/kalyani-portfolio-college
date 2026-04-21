@@ -5,15 +5,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import os
-
-
-app = FastAPI(
-    title="Kalyani Portfolio API",
-    description="Backend API powering Kalyani's personal portfolio",
-    version="1.0.0",
-    docs_url="/docs",
-    redoc_url="/redoc",
-)
+from routers import blogs, projects, contact, analytics, auth, github, spotify, photos
 
 
 app = FastAPI(
