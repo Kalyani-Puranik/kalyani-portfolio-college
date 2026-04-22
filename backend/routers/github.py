@@ -51,6 +51,11 @@ async def get_github_stats():
 
     print(data)
 
+    if "data" not in data:
+        return {
+            "error": "GitHub API failed",
+            "details": data
+    }
     user = data["data"]["user"]
     repos = user["repositories"]["nodes"]
 
