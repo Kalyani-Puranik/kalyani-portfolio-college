@@ -2,7 +2,7 @@
    KALYANI PORTFOLIO — MAIN JAVASCRIPT
    ═══════════════════════════════════════════════════ */
 
-const API_BASE = 'http://localhost:8000'; // Change for production
+const API_BASE = 'https://kalyani-puranik-portfolio.onrender.com';
 
 /* ── PAGE LOADER ──────────────────────────────────── */
 window.addEventListener('load', () => {
@@ -229,34 +229,21 @@ function formatDate(dateStr) {
 }
 
 /* ── GITHUB STATS ─────────────────────────────────── */
-async function fetchGitHubStats() {
+async function loadGithubStats() {
   try {
-    // Via our own backend proxy to avoid rate limits
     const res = await fetch(`${API_BASE}/github/stats`);
-    if (!res.ok) throw new Error();
     const data = await res.json();
 
-    document.getElementById('githubRepos').textContent = data.public_repos || '—';
-    document.getElementById('githubFollowers').textContent = data.followers || '—';
+    document.getElementById("githubRepos").textContent = data.public_repos;
+    document.getElementById("githubFollowers").textContent = data.followers;
+    document.getElementById("githubStars").textContent = data.total_stars;
 
-    // Stars: sum across repos
-    if (data.total_stars !== undefined) {
-      document.getElementById('githubStars').textContent = data.total_stars;
-    }
-  } catch {
-    // Direct GitHub API fallback
-    try {
-      const res = await fetch('https://api.github.com/users/kalyani');
-      if (res.ok) {
-        const data = await res.json();
-        document.getElementById('githubRepos').textContent = data.public_repos;
-        document.getElementById('githubFollowers').textContent = data.followers;
-      }
-    } catch {
-      // Silently fail — placeholders remain
-    }
+  } catch (err) {
+    console.error("GitHub fetch failed", err);
   }
 }
+
+loadGithubStats();
 
 /* ── SPOTIFY ──────────────────────────────────────── */
 async function fetchSpotify() {
@@ -400,7 +387,7 @@ sections.forEach(s => sectionObserver.observe(s));
 /* ── INIT ─────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   fetchBlogs();
-  fetchGitHubStats();
+  loadGithubStats();
   fetchSpotify();
   trackVisit();
 

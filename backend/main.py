@@ -7,7 +7,6 @@ from contextlib import asynccontextmanager
 import os
 from routers import blogs, projects, contact, analytics, auth, github, spotify, photos
 
-
 app = FastAPI(
     title="Kalyani Portfolio API",
     description="Backend API powering Kalyani's personal portfolio",
@@ -16,6 +15,8 @@ app = FastAPI(
     redoc_url="/redoc",
     #lifespan=lifespan,
 )
+
+app.include_router(github.router, prefix="/github", tags=["GitHub"])
 
 # ── MIDDLEWARE ─────────────────────────────────────────
 app.add_middleware(

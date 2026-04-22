@@ -10,7 +10,7 @@ from datetime import datetime
 
 class BlogCreate(BaseModel):
     title: str = Field(..., min_length=3, max_length=200)
-    slug: str = Field(..., regex=r'^[a-z0-9-]+$')
+    slug: str = Field(..., pattern=r'^[a-z0-9-]+$')
     excerpt: str = Field(..., min_length=10, max_length=500)
     content: str = Field(..., min_length=20)
     tag: str = "thoughts"
