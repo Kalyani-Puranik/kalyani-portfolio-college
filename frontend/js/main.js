@@ -232,15 +232,22 @@ async function loadGithubStats() {
     const res = await fetch(`${API_BASE}/github/stats`);
     const data = await res.json();
 
-    document.getElementById("githubRepos").textContent = data.public_repos ?? "-";
-    document.getElementById("githubFollowers").textContent = data.followers ?? "-";
-    document.getElementById("githubStars").textContent = data.total_stars ?? "-";
-    document.getElementById("githubContribs").textContent = data.contributions_year ?? "-";
-    document.getElementById("githubTotalStars").textContent = data.total_stars ?? 0;
-    document.getElementById("githubCommits").textContent = data.total_commits ?? 0;
-    document.getElementById("githubPRs").textContent = data.total_prs ?? 0;
-    document.getElementById("githubIssues").textContent = data.total_issues ?? 0;
-    document.getElementById("githubContributions").textContent = data.contributions_year ?? 0;
+    const set = (id, value) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    };
+
+    set("githubRepos", data.public_repos ?? "-");
+    set("githubFollowers", data.followers ?? "-");
+    set("githubStars", data.total_stars ?? "-");
+    set("githubContribs", data.contributions_year ?? "-");
+
+    set("githubTotalStars", data.total_stars ?? 0);
+    set("githubCommits", data.total_commits ?? 0);
+    set("githubPRs", data.total_prs ?? 0);
+    set("githubIssues", data.total_issues ?? 0);
+    set("githubContributions", data.contributions_year ?? 0);
+
   } catch (err) {
     console.error("GitHub fetch failed", err);
   }
@@ -392,6 +399,5 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchSpotify();
   trackVisit();
 
-  // Refresh Spotify every 30 seconds
   setInterval(fetchSpotify, 30000);
 });
