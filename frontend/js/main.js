@@ -229,27 +229,31 @@ function formatDate(dateStr) {
 /* ── GITHUB STATS ─────────────────────────────────── */
 async function loadGithubStats() {
   try {
-    const setStat = (id, value) => {
-    const el = document.getElementById(id);
-    if (!el) return;
+    const res = await fetch(`${API_BASE}/github/stats`);
+    const data = await res.json();
 
-      el.setAttribute("data-target", value); // 👈 important
-      el.textContent = "0"; // start from zero
+    const setStat = (id, value) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      el.setAttribute("data-target", value);
+      el.textContent = "0";
     };
 
-  setStat("githubRepos", data.public_repos ?? 0);
-  setStat("githubStars", data.total_stars ?? 0);
-  setStat("githubFollowers", data.followers ?? 0);
-  setStat("githubContribs", data.contributions_year ?? 0);
+    setStat("githubRepos", data.public_repos ?? 0);
+    setStat("githubStars", data.total_stars ?? 0);
+    setStat("githubFollowers", data.followers ?? 0);
+    setStat("githubContribs", data.contributions_year ?? 0);
 
-  // 🔥 trigger animation AFTER setting values
-  animateCounters();
+    // 🔥 IMPORTANT: run animation AFTER setting values
+    animateCounters();
 
-    document.getElementById("githubTotalStars").innerText = data.total_stars;
-    document.getElementById("githubCommits").innerText = data.total_commits;
-    document.getElementById("githubPRs").innerText = data.total_prs;
-    document.getElementById("githubIssues").innerText = data.total_issues;
-    document.getElementById("githubContributions").innerText = data.contributions_year;
+    // bottom card (keep this)
+    document.getElementById("githubTotalStars").innerText = data.total_stars ?? 0;
+    document.getElementById("githubCommits").innerText = data.total_commits ?? 0;
+    document.getElementById("githubPRs").innerText = data.total_prs ?? 0;
+    document.getElementById("githubIssues").innerText = data.total_issues ?? 0;
+    document.getElementById("githubContributions").innerText = data.contributions_year ?? 0;
 
   } catch (err) {
     console.error("GitHub fetch failed", err);
