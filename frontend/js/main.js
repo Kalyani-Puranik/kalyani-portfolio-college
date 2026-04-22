@@ -287,24 +287,20 @@ async function loadGithubStats() {
 /* ── SPOTIFY ──────────────────────────────────────── */
 async function fetchSpotify() {
   try {
-    const res = await fetch(`${API_BASE}/spotify/now-playing`);
-    if (!res.ok) throw new Error();
+    const res = await fetch(`${API_BASE}/lastfm/now-playing`);
     const data = await res.json();
 
-    if (data.is_playing) {
-      document.getElementById('spotifySong').textContent = data.track_name;
-      document.getElementById('spotifyArtist').textContent = data.artist;
-      if (data.album_art) {
-        document.querySelector('.album-placeholder').innerHTML = `<img src="${data.album_art}" alt="album art" style="width:100%;height:100%;object-fit:cover;border-radius:4px">`;
-      }
-    } else {
-      document.getElementById('spotifySong').textContent = 'nothing right now';
-      document.getElementById('spotifyArtist').textContent = 'probably studying 📖';
-      document.querySelector('.spotify-bars').style.opacity = '0.4';
+    document.getElementById('spotifySong').textContent = data.track_name;
+    document.getElementById('spotifyArtist').textContent = data.artist;
+
+    if (data.album_art) {
+      document.querySelector('.album-placeholder').innerHTML =
+        `<img src="${data.album_art}" style="width:100%;height:100%;object-fit:cover;border-radius:6px">`;
     }
+
   } catch {
-    document.getElementById('spotifySong').textContent = 'API not connected';
-    document.getElementById('spotifyArtist').textContent = 'check back later 🎵';
+    document.getElementById('spotifySong').textContent = 'not listening rn';
+    document.getElementById('spotifyArtist').textContent = '';
   }
 }
 

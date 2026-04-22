@@ -17,6 +17,7 @@ app = FastAPI(
 )
 
 app.include_router(github.router, prefix="/github", tags=["GitHub"])
+app.include_router(spotify.router="/lastfm", tags=["LastFM"])
 
 # ── MIDDLEWARE ─────────────────────────────────────────
 app.add_middleware(
