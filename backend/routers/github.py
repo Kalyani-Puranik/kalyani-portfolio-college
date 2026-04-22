@@ -1,47 +1,73 @@
 from fastapi import APIRouter
 import httpx
+import os
 
 router = APIRouter()
 
 GITHUB_USERNAME = "Kalyani-Puranik"
 
-
 @router.get("/stats")
 async def get_github_stats():
-    user_url = f"https://api.github.com/users/{GITHUB_USERNAME}"
-    repo_url = f"https://api.github.com/users/{GITHUB_USERNAME}/repos"
+    token = os.getenv("GITHUB_TOKEN")
+
+    query = """
+    {
+      user(login: "Kalyani-Puranik") {
+        repositories(first: 100, ownerAffiliations: OWNER) {
+          nodes {
+            stargazerCount
+            forkCount
+            issues(states: OPEN) {
+              totalCount
+            }
+          }
+        }
+        followers {
+          totalCount
+        }
+        contributionsCollection {
+          contributionCalendar {
+            totalContributions
+          }
+          totalCommitContributions
+          totalPullRequestContributions
+        }
+      }
+    }
+    """
 
     headers = {
-        "Accept": "application/vnd.github+json"
+        "Authorization": f"Bearer {token}"
     }
 
     async with httpx.AsyncClient() as client:
-        user_res = await client.get(user_url, headers=headers)
-        repo_res = await client.get(repo_url, headers=headers)
+        res = await client.post(
+            "https://api.github.com/graphql",
+            json={"query": query},
+            headers=headers
+        )
 
-    user_data = user_res.json()
-    repos = repo_res.json()
+    data = res.json()
 
-    print("USER:", user_data)
-    print("REPOS:", repos)
+    print(data)
 
-    if "message" in user_data:
-        return {
-            "public_repos": 0,
-            "followers": 0,
-            "total_stars": 0,
-            "error": user_data["message"]
-        }
+    user = data["data"]["user"]
+    repos = user["repositories"]["nodes"]
 
-    if not isinstance(repos, list):
-        repos = []
-
-    total_stars = sum(repo.get("stargazers_count", 0) for repo in repos)
+    total_stars = sum(r["stargazerCount"] for r in repos)
+    total_forks = sum(r["forkCount"] for r in repos)
+    total_issues = sum(r["issues"]["totalCount"] for r in repos)
 
     return {
-        "public_repos": user_data.get("public_repos", 0),
-        "followers": user_data.get("followers", 0),
+        "public_repos": len(repos),
+        "followers": user["followers"]["totalCount"],
         "total_stars": total_stars,
+        "total_forks": total_forks,
+        "total_issues": total_issues,
+
+        "total_commits": user["contributionsCollection"]["totalCommitContributions"],
+        "total_prs": user["contributionsCollection"]["totalPullRequestContributions"],
+        "contributions_year": user["contributionsCollection"]["contributionCalendar"]["totalContributions"]
     }
 
 
