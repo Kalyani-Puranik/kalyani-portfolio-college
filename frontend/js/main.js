@@ -290,8 +290,19 @@ async function fetchSpotify() {
     const res = await fetch(`${API_BASE}/lastfm/now-playing`);
     const data = await res.json();
 
-    document.getElementById('spotifySong').textContent = data.track_name;
-    document.getElementById('spotifyArtist').textContent = data.artist;
+    const songEl = document.getElementById('spotifySong');
+    const artistEl = document.getElementById('spotifyArtist');
+
+    const albumEl = document.querySelector('.album-placeholder');
+
+    if (albumEl && data.album_art) {
+      albumEl.innerHTML = `
+      <img src="${data.album_art}" 
+      style="width:100%;height:100%;object-fit:cover;border-radius:10px">
+    `;
+    }
+    if (songEl) songEl.innerText = data.track_name || "No song";
+    if (artistEl) artistEl.innerText = data.artist || "";
 
     if (data.album_art) {
       document.querySelector('.album-placeholder').innerHTML =
