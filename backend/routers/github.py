@@ -18,7 +18,10 @@ async def get_github_stats():
     user_data = user_res.json()
     repos = repo_res.json()
 
-    total_stars = sum(repo["stargazers_count"] for repo in repos)
+    if isinstance(repos, list):
+        total_stars = sum(repo.get("stargazers_count", 0) for repo in repos)
+    else:
+        total_stars = 0
 
     return {
         "public_repos": user_data.get("public_repos"),
