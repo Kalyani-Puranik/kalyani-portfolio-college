@@ -229,15 +229,21 @@ function formatDate(dateStr) {
 /* ── GITHUB STATS ─────────────────────────────────── */
 async function loadGithubStats() {
   try {
-    const res = await fetch(`${API_BASE}/github/stats`);
-    const data = await res.json();
+    const setStat = (id, value) => {
+    const el = document.getElementById(id);
+    if (!el) return;
 
-    console.log("DATA:", data);
+      el.setAttribute("data-target", value); // 👈 important
+      el.textContent = "0"; // start from zero
+    };
 
-    document.getElementById("githubRepos").innerText = data.public_repos;
-    document.getElementById("githubFollowers").innerText = data.followers;
-    document.getElementById("githubStars").innerText = data.total_stars;
-    document.getElementById("githubContribs").innerText = data.contributions_year;
+  setStat("githubRepos", data.public_repos ?? 0);
+  setStat("githubStars", data.total_stars ?? 0);
+  setStat("githubFollowers", data.followers ?? 0);
+  setStat("githubContribs", data.contributions_year ?? 0);
+
+  // 🔥 trigger animation AFTER setting values
+  animateCounters();
 
     document.getElementById("githubTotalStars").innerText = data.total_stars;
     document.getElementById("githubCommits").innerText = data.total_commits;
