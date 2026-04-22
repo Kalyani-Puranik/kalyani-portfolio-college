@@ -232,21 +232,18 @@ async function loadGithubStats() {
     const res = await fetch(`${API_BASE}/github/stats`);
     const data = await res.json();
 
-    const set = (id, value) => {
-      const el = document.getElementById(id);
-      if (el) el.textContent = value;
-    };
+    console.log("DATA:", data);
 
-    set("githubRepos", data.public_repos ?? "-");
-    set("githubFollowers", data.followers ?? "-");
-    set("githubStars", data.total_stars ?? "-");
-    set("githubContribs", data.contributions_year ?? "-");
+    document.getElementById("githubRepos").innerText = data.public_repos;
+    document.getElementById("githubFollowers").innerText = data.followers;
+    document.getElementById("githubStars").innerText = data.total_stars;
+    document.getElementById("githubContribs").innerText = data.contributions_year;
 
-    set("githubTotalStars", data.total_stars ?? 0);
-    set("githubCommits", data.total_commits ?? 0);
-    set("githubPRs", data.total_prs ?? 0);
-    set("githubIssues", data.total_issues ?? 0);
-    set("githubContributions", data.contributions_year ?? 0);
+    document.getElementById("githubTotalStars").innerText = data.total_stars;
+    document.getElementById("githubCommits").innerText = data.total_commits;
+    document.getElementById("githubPRs").innerText = data.total_prs;
+    document.getElementById("githubIssues").innerText = data.total_issues;
+    document.getElementById("githubContributions").innerText = data.contributions_year;
 
   } catch (err) {
     console.error("GitHub fetch failed", err);
