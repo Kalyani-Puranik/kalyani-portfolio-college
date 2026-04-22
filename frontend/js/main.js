@@ -154,7 +154,6 @@ async function fetchBlogs() {
     const data = await res.json();
     renderBlogs(data.blogs || data);
   } catch (e) {
-    // Fallback: show sample blog posts
     renderBlogs(sampleBlogs);
   }
 }
@@ -162,24 +161,24 @@ async function fetchBlogs() {
 const sampleBlogs = [
   {
     _id: '1',
-    title: 'Why Attention is All You Need (and a little patience)',
-    excerpt: 'Breaking down the transformer architecture in a way my past self would understand — no PhD required, just curiosity and caffeine.',
+    title: 'Junk Data Junk Data Junk Data Junk Data ',
+    excerpt: 'Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data ',
     tag: 'ML',
     date: '2024-11-15',
     read_time: '8 min read'
   },
   {
     _id: '2',
-    title: 'Building my first RAG pipeline: mistakes, magic & lessons',
-    excerpt: 'RAG seemed intimidating until I built one. Here\'s the full journey from confused undergrad to slightly less confused undergrad.',
+    title: 'Junk Data Junk Data Junk Data Junk Data ',
+    excerpt: 'Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data ',
     tag: 'NLP',
     date: '2024-10-22',
     read_time: '12 min read'
   },
   {
     _id: '3',
-    title: 'On being a woman in AIML — the beautiful, the hard, the worth-it',
-    excerpt: 'A personal reflection on navigating a field that\'s changing fast, from a student who is learning to take up space unapologetically.',
+    title: 'Junk Data Junk Data Junk Data Junk Data ',
+    excerpt: 'Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data ',
     tag: 'personal',
     date: '2024-09-10',
     read_time: '6 min read'
@@ -218,7 +217,6 @@ function renderBlogs(blogs) {
 }
 
 function openBlog(id) {
-  // In production: navigate to blog post page
   console.log('Opening blog:', id);
 }
 
@@ -234,16 +232,19 @@ async function loadGithubStats() {
     const res = await fetch(`${API_BASE}/github/stats`);
     const data = await res.json();
 
-    document.getElementById("githubRepos").textContent = data.public_repos;
-    document.getElementById("githubFollowers").textContent = data.followers;
-    document.getElementById("githubStars").textContent = data.total_stars;
-
+    document.getElementById("githubRepos").textContent = data.public_repos ?? "-";
+    document.getElementById("githubFollowers").textContent = data.followers ?? "-";
+    document.getElementById("githubStars").textContent = data.total_stars ?? "-";
+    document.getElementById("githubContribs").textContent = data.contributions_year ?? "-";
+    document.getElementById("githubTotalStars").textContent = data.total_stars ?? 0;
+    document.getElementById("githubCommits").textContent = data.total_commits ?? 0;
+    document.getElementById("githubPRs").textContent = data.total_prs ?? 0;
+    document.getElementById("githubIssues").textContent = data.total_issues ?? 0;
+    document.getElementById("githubContributions").textContent = data.contributions_year ?? 0;
   } catch (err) {
     console.error("GitHub fetch failed", err);
   }
 }
-
-loadGithubStats();
 
 /* ── SPOTIFY ──────────────────────────────────────── */
 async function fetchSpotify() {
