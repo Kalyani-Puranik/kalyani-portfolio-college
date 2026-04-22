@@ -240,15 +240,39 @@ async function loadGithubStats() {
       el.textContent = "0";
     };
 
+    // set values
     setStat("githubRepos", data.public_repos ?? 0);
     setStat("githubStars", data.total_stars ?? 0);
     setStat("githubFollowers", data.followers ?? 0);
     setStat("githubContribs", data.contributions_year ?? 0);
 
-    // 🔥 IMPORTANT: run animation AFTER setting values
-    animateCounters();
+    // animation function
+    const animateStat = (el, target) => {
+      let count = 0;
+      const step = target / 40;
 
-    // bottom card (keep this)
+      const timer = setInterval(() => {
+        count += step;
+
+        if (count >= target) {
+          el.textContent = target;
+          clearInterval(timer);
+        } else {
+          el.textContent = Math.floor(count);
+        }
+      }, 20);
+    };
+
+    // animate each stat
+    ["githubRepos", "githubStars", "githubFollowers", "githubContribs"].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const target = parseInt(el.getAttribute("data-target")) || 0;
+      animateStat(el, target);
+    });
+
+    // bottom card (no animation)
     document.getElementById("githubTotalStars").innerText = data.total_stars ?? 0;
     document.getElementById("githubCommits").innerText = data.total_commits ?? 0;
     document.getElementById("githubPRs").innerText = data.total_prs ?? 0;
