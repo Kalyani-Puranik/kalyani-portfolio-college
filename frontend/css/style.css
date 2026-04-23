@@ -1470,8 +1470,8 @@ section {
 
 /* ── FOOTER ──────────────────────────────────────── */
 .footer {
-  background: var(--text);
-  color: var(--bg);
+  background: var(--bg-card);
+  color: var(--text);
   padding: 4rem 0 2rem;
 }
 
