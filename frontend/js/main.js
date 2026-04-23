@@ -163,7 +163,7 @@ const sampleBlogs = [
     _id: '1',
     title: 'Junk Data Junk Data Junk Data Junk Data ',
     excerpt: 'Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data Junk Data ',
-    tag: 'ML',s
+    tag: 'ML',
     date: '2024-11-15',
     read_time: '8 min read'
   },
