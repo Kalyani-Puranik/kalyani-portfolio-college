@@ -40,6 +40,9 @@
   --border:       #3d2525;
   --shadow:       rgba(229, 152, 155, 0.08);
   --shadow-md:    rgba(229, 152, 155, 0.15);
+  --footer-bg:    #251515;
+  --footer-text:  #f5e6e8;
+  --footer-muted: rgba(245,230,232,0.6);
 }
 
 /* ── RESET ───────────────────────────────────────── */
@@ -1470,8 +1473,8 @@ section {
 
 /* ── FOOTER ──────────────────────────────────────── */
 .footer {
-  background: var(--bg-card);
-  color: var(--text);
+  background: var(--footer-bg);
+  color: var(--footer-text);
   padding: 4rem 0 2rem;
 }
 
