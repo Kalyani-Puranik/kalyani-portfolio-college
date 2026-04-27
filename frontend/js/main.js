@@ -315,6 +315,17 @@ async function fetchSpotify() {
   }
 }
 
+const card = document.getElementById("spotifyCard");
+
+if (data.album_art && card) {
+  card.style.backgroundImage = `
+    linear-gradient(rgba(20,20,40,0.7), rgba(20,20,40,0.9)),
+    url(${data.album_art})
+  `;
+  card.style.backgroundSize = "cover";
+  card.style.backgroundPosition = "center";
+}
+
 /* ── CONTACT FORM ─────────────────────────────────── */
 document.getElementById('contactForm').addEventListener('submit', async (e) => {
   e.preventDefault();
