@@ -301,7 +301,7 @@ async function fetchSpotify() {
       style="width:100%;height:100%;object-fit:cover;border-radius:10px">
     `;
     }
-    if (songEl) songEl.innerText = data.track_name || "No song";
+    if (songEl) songEl.innerText = data.track_name || "not listening rn";
     if (artistEl) artistEl.innerText = data.artist || "";
 
     if (data.album_art) {
