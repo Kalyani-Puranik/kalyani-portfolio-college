@@ -287,7 +287,7 @@ async function loadGithubStats() {
 /* ── SPOTIFY ──────────────────────────────────────── */
 async function fetchSpotify() {
   try {
-    const res = await fetch(`${API_BASE}/lastfm/now-playing`);
+    const res = await fetch(`${API_BASE}/spotify/now-playing`);
     const data = await res.json();
 
     const songEl = document.getElementById('spotifySong');
