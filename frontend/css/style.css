@@ -1237,6 +1237,14 @@ section {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.fun-card--spotify::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.15), transparent 60%);
+  pointer-events: none;
+}
+
 .fun-card--spotify:hover {
   transform: translateY(-6px) scale(1.01);
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
@@ -1291,7 +1299,25 @@ section {
 .spotify-info {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 14px;
+}
+
+.spotify-album-art img {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.spotify-song {
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+}
+
+.spotify-artist {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
 }
 
 .album-placeholder {
