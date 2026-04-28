@@ -361,11 +361,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
 
 /* ── RESUME DOWNLOAD ─────────────────────────────── */
 function downloadResume() {
-  // In production: point to actual resume file
-  const link = document.createElement('a');
-  link.href = `${API_BASE}/resume/download`;
-  link.download = 'Kalyani_Resume.pdf';
-  link.click();
+  window.open("public/resume.pdf", "_blank");
 }
 
 /* ── ANALYTICS ────────────────────────────────────── */
