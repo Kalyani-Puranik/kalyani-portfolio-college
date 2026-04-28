@@ -586,9 +586,10 @@ section {
   justify-content: center;
 }
 
-.photo-placeholder {
-  width: 320px;
-  height: 400px;
+.photo-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   background: linear-gradient(135deg, var(--puce-light), var(--puce));
   border-radius: 40% 60% 60% 40% / 50% 50% 60% 40%;
   display: flex;
@@ -598,6 +599,11 @@ section {
   overflow: hidden;
   box-shadow: 24px 24px 0 var(--border);
   animation: blobMorph 8s ease-in-out infinite;
+  transition: transform 0.4s ease
+}
+
+.photo-placeholder:hover img {
+  transform: scale(1.05);
 }
 
 @keyframes blobMorph {
