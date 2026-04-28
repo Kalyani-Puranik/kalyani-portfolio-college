@@ -361,7 +361,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
 
 /* ── RESUME DOWNLOAD ─────────────────────────────── */
 function downloadResume() {
-  window.open("/public/resume.pdf", "_blank");
+  window.open("/resume.pdf", "_blank");
 }
 
 /* ── ANALYTICS ────────────────────────────────────── */
