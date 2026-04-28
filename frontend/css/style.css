@@ -1247,7 +1247,7 @@ section {
 
 .fun-card--spotify:hover {
   transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  box-shadow: 0 12px 40px var(--shadow-md);
 }
 
 .fun-card--spotify h3 { color: white; }
@@ -1317,6 +1317,12 @@ section {
   padding: clamp(16px, 3vw, 28px);
 }
 
+.fun-card--spotify:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+  border-color: rgba(255,255,255,0.2);
+}
+
 .fun-card--spotify:hover .spotify-album-art img {
   transform: scale(1.05);
 }
@@ -1336,8 +1342,8 @@ section {
 }
 
 .album-placeholder {
-  width: 48px;
-  height: 48px;
+  width: clamp(60px,10vw,100px);
+  height: clamp(60px,10vw,100px);
   background: rgba(255,255,255,0.1);
   border-radius: var(--r-sm);
   display: flex;
@@ -1347,17 +1353,6 @@ section {
   flex-shrink: 0;
 }
 
-.spotify-song {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: white;
-  margin-bottom: 0.2rem;
-}
-
-.spotify-artist {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.5);
-}
 
 /* ── PHOTOGRAPHY ─────────────────────────────────── */
 .photography { background: var(--bg); }
