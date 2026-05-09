@@ -695,6 +695,16 @@ section {
   gap: 0.75rem;
 }
 
+.about-tags .tag {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
 .tag {
   display: inline-flex;
   align-items: center;
