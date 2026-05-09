@@ -270,6 +270,10 @@ section {
   font-weight: 500;
   letter-spacing: -1px;
   color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .nav-logo .logo-dot { color: var(--puce); }
