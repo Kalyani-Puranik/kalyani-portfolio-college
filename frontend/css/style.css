@@ -703,6 +703,7 @@ section {
   font-size: 0.85rem;
   color: var(--text-muted);
   transition: var(--transition);
+  white-space: nowrap;
 }
 
 .tag {
